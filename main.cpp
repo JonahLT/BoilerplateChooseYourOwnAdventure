@@ -99,6 +99,7 @@ int main(int argc, char* argv[]) {
     bool show_another_window = false;
     bool show_game_window = false;
     bool show_menu_window = true;
+    bool show_save_window = false;
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -180,9 +181,30 @@ int main(int argc, char* argv[]) {
         if(show_menu_window){
             ImGui::Begin("Main Menu");
             if(ImGui::Button("Load Game")){
-                show_game_window = true;
+                show_save_window = true;
                 show_menu_window = false;
             }
+            ImGui::End();
+        }
+
+        //showing the menu
+        if(show_save_window){
+            int saveSelection = 0;
+            ImGui::Begin("Saves");
+            if(ImGui::Button("Load Save One")){
+                show_game_window = true;
+                show_save_window = false;
+                saveSelection = 1;
+            } else if(ImGui::Button("Load Save Two")) {
+                show_game_window = true;
+                show_save_window = false;
+                saveSelection = 2;
+            } else if(ImGui::Button("Load Save Three")) {
+                show_game_window = true;
+                show_save_window = false;
+                saveSelection = 3;
+            }
+            //send save selection to story.cpp
             ImGui::End();
         }
 
@@ -205,15 +227,15 @@ int main(int argc, char* argv[]) {
             ImGui::Text("This is where the game is lol");
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
-            if (ImGui::Button("Choice A")) {
+            if (buttonThree != "NA" && ImGui::Button("Choice A")) {
                 selection = 1;
             }
 
-            if (ImGui::Button("Choice B")) {
+            if (buttonThree != "NA" && ImGui::Button("Choice B")) {
                 selection = 2;
             }
 
-            if (buttonThree == "NA" || ImGui::Button("Choice C")) {
+            if ( buttonThree != "NA" && ImGui::Button("Choice C")) {
                 selection = 3;
             }
 
