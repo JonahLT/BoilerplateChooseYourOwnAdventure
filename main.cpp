@@ -95,8 +95,11 @@ int main(int argc, char* argv[]) {
     //IM_ASSERT(font != NULL);
 
     // Our state
-    bool show_demo_window = true;
+    bool show_demo_window = false;
     bool show_another_window = false;
+    bool show_game_window = false;
+    bool show_menu_window = true;
+
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
@@ -173,16 +176,27 @@ int main(int argc, char* argv[]) {
             ImGui::End();
         }
 
+        //showing the menu
+        if(show_menu_window){
+            ImGui::Begin("Main Menu");
+            if(ImGui::Button("Load Game")){
+                show_game_window = true;
+                show_menu_window = false;
+            }
+            ImGui::End();
+        }
+
         //game window maybeeee :3
-        {
+        if (show_game_window){
             //call story.cpp to get data of what to show on screen
             std::string roomDescription = "ROOM DESCRIPTION HERE!!!!";
             std::string buttonOne = "BUTTON DESCRIPTION HERE";
             std::string buttonTwo = "BUTTON DESCRIPTION HERE";
             std::string buttonThree = "NA";
 
+            int selection = -1;
+
             ImGui::Begin("Game Window");
-            //display buttons
 
             //display description
 
@@ -191,17 +205,21 @@ int main(int argc, char* argv[]) {
             ImGui::Text("This is where the game is lol");
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
+            if (ImGui::Button("Choice A")) {
+                selection = 1;
+            }
+
+            if (ImGui::Button("Choice B")) {
+                selection = 2;
+            }
+
+            if (buttonThree == "NA" || ImGui::Button("Choice C")) {
+                selection = 3;
+            }
 
 
-
-
-            //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::End();
         }
-
-
-
-
 
 
         // Rendering
