@@ -24,6 +24,8 @@ return canvas.height;
 });
 #endif
 
+
+
 int main(int argc, char* argv[]) {
     // Unused argc, argv
     (void) argc;
@@ -171,6 +173,36 @@ int main(int argc, char* argv[]) {
             ImGui::End();
         }
 
+        //game window maybeeee :3
+        {
+            //call story.cpp to get data of what to show on screen
+            std::string roomDescription = "ROOM DESCRIPTION HERE!!!!";
+            std::string buttonOne = "BUTTON DESCRIPTION HERE";
+            std::string buttonTwo = "BUTTON DESCRIPTION HERE";
+            std::string buttonThree = "NA";
+
+            ImGui::Begin("Game Window");
+            //display buttons
+
+            //display description
+
+            //send back player input when u get it
+
+            ImGui::Text("This is where the game is lol");
+            ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
+
+
+
+
+
+            //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::End();
+        }
+
+
+
+
+
 
         // Rendering
         ImGui::Render();
@@ -179,6 +211,19 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(renderer);
 
         // todo: add your game logic here to be drawn before the ui rendering
+
+        //call story.cpp to get data of what to show on screen
+        std::string roomDescription = "ROOM DESCRIPTION HERE!!!!";
+        std::string buttonOne = "BUTTON DESCRIPTION HERE";
+        std::string buttonTwo = "BUTTON DESCRIPTION HERE";
+        std::string buttonThree = "NA";
+        //display buttons
+
+        //display description
+
+        //send back player input when u get it
+
+
         // Set renderer color red to draw the square
         SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
         // Draw filled square
