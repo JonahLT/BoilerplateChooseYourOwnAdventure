@@ -232,17 +232,20 @@ int main(int argc, char* argv[]) {
             } else if (saveSelection == 3) {
                 saveFileName = "saveFile3";
             }
-            ifstream myfile;
-            string item;
-            myfile.open (saveFileName);
-            myfile >> item;
-            myfile >> dialogController.chapterNum;
-            myfile >> dialogController.pageNum;
-            while (!myfile.eof()) {
-                getline(myfile, item, ',');
-                playerController.inventory.push_back(item);
+            if(show_save_window == false) {
+                ifstream myfile;
+                string item;
+                myfile.open (saveFileName);
+                myfile >> item;
+                myfile >> dialogController.chapterNum;
+                myfile >> dialogController.pageNum;
+                while (!myfile.eof()) {
+                    getline(myfile, item, ',');
+                    playerController.inventory.push_back(item);
+                }
+                myfile.close();
             }
-            myfile.close();
+
             ImGui::End();
         }
 
