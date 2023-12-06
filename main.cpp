@@ -4,6 +4,8 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include "story.h"
+#include "story.cpp"
 //#include <SDL_mixer.h>
 //#include <SDL_ttf.h>
 #include "imgui.h"
@@ -27,6 +29,14 @@ return canvas.height;
 
 
 int main(int argc, char* argv[]) {
+
+    uiElement controllerClass;
+    string saveFileName;
+    Dialog1 dialogController;
+    Player playerController;
+
+
+
     // Unused argc, argv
     (void) argc;
     (void) argv;
@@ -117,6 +127,16 @@ int main(int argc, char* argv[]) {
     squareRect.x = width / 2 - squareRect.w / 2;
     squareRect.y = height / 2 - squareRect.h / 2;
 
+    //
+    //
+    //
+    //////
+    //
+    //
+    //
+
+
+
     // Event loop
     while (!done) {
         // Poll and handle events (inputs, window resize, etc.)
@@ -205,16 +225,35 @@ int main(int argc, char* argv[]) {
                 saveSelection = 3;
             }
             //send save selection to story.cpp
+            if (saveSelection == 1) {
+                saveFileName = "saveFile1";
+            }else if(saveSelection == 2) {
+                saveFileName = "saveFile2";
+            } else if (saveSelection == 3) {
+                saveFileName = "saveFile3";
+            }
+            ifstream myfile;
+            string item;
+            myfile.open (saveFileName);
+            myfile >> item;
+            myfile >> dialogController.chapterNum;
+            myfile >> dialogController.pageNum;
+            while (!myfile.eof()) {
+                getline(myfile, item, ',');
+                playerController.inventory.push_back(item);
+            }
+            myfile.close();
             ImGui::End();
         }
 
         //game window maybeeee :3
         if (show_game_window){
             //call story.cpp to get data of what to show on screen
-            std::string roomDescription = "ROOM DESCRIPTION HERE!!!!";
-            std::string buttonOne = "BUTTON DESCRIPTION HERE";
-            std::string buttonTwo = "BUTTON DESCRIPTION HERE";
-            std::string buttonThree = "NA";
+            dialogController.displayInfo();
+            std::string roomDescription = dialogController.dialog[0];//"ROOM DESCRIPTION HERE!!!!";
+            std::string buttonOne = dialogController.dialog[1];
+            std::string buttonTwo = dialogController.dialog[2];
+            std::string buttonThree = dialogController.dialog[3];
 
             int selection = -1;
 
@@ -227,17 +266,18 @@ int main(int argc, char* argv[]) {
             ImGui::Text("This is where the game is lol");
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
-            if (buttonThree != "NA" && ImGui::Button("Choice A")) {
-                selection = 1;
+            if (buttonThree != "NA" && ImGui::Button("Choice A") && dialogController.validInputCheck(1)) {
+                dialogController.changePage(1); //selection = 1;
             }
 
-            if (buttonThree != "NA" && ImGui::Button("Choice B")) {
-                selection = 2;
+            if (buttonThree != "NA" && ImGui::Button("Choice B") && dialogController.validInputCheck(2)) {
+                dialogController.changePage(2); //selection = 2;
             }
 
-            if ( buttonThree != "NA" && ImGui::Button("Choice C")) {
-                selection = 3;
+            if ( buttonThree != "NA" && ImGui::Button("Choice C") && dialogController.validInputCheck(3)) {
+                dialogController.changePage(3); //selection = 3;
             }
+
 
 
             ImGui::End();
