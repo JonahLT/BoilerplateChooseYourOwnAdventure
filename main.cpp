@@ -210,39 +210,23 @@ int main(int argc, char* argv[]) {
 
         //showing the menu
         if(show_save_window){
+            bool wow = true;
             int saveSelection = 0;
             ImGui::Begin("Saves");
             if(ImGui::Button("Load Save One")){
-                show_game_window = true;
-                show_save_window = false;
+
                 saveSelection = 1;
-            } else if(ImGui::Button("Load Save Two")) {
-                show_game_window = true;
-                show_save_window = false;
-                saveSelection = 2;
-            } else if(ImGui::Button("Load Save Three")) {
-                show_game_window = true;
-                show_save_window = false;
-                saveSelection = 3;
-            }
-            //send save selection to story.cpp
-            if (saveSelection == 1) {
-                saveFileName = "saveFile1";
-            }else if(saveSelection == 2) {
-                saveFileName = "saveFile2";
-            } else if (saveSelection == 3) {
-                saveFileName = "saveFile3";
-            }
-            if(show_save_window == false) {
                 ifstream myfile;
                 string item;
-                myfile.open (saveFileName);
-                if (myfile.is_open()) {
+                myfile.open ("saveFile1.txt");
+                if (myfile) {
+                    cout << "save file opened";
                     myfile >> item;
                     myfile >> dialogController.chapterNum;
                     myfile >> dialogController.pageNum;
                     int counter = 0;
                     while (!myfile.eof()) {
+
                         if (!(playerController.inventory.size() < counter)) {
                             playerController.inventory.resize(playerController.inventory.size()*2);
                         }
@@ -257,6 +241,28 @@ int main(int argc, char* argv[]) {
                 }
 
                 myfile.close();
+                show_game_window = true;
+                show_save_window = false;
+            } else if(ImGui::Button("Load Save Two")) {
+                show_game_window = true;
+                show_save_window = false;
+                saveSelection = 2;
+            } else if(ImGui::Button("Load Save Three")) {
+                show_game_window = true;
+                show_save_window = false;
+                saveSelection = 3;
+            }
+            //cout << "this is good\n";
+            //send save selection to story.cpp
+            if (saveSelection == 1) {
+                saveFileName = "saveFile1.txt";
+            }else if(saveSelection == 2) {
+                saveFileName = "saveFile2.txt";
+            } else if (saveSelection == 3) {
+                saveFileName = "saveFile3.txt";
+            }
+            if(show_save_window == false) {
+
             }
 
             ImGui::End();
