@@ -281,15 +281,21 @@ int main(int argc, char* argv[]) {
             ImGui::Text("This is where the game is lol");
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
-            if (buttonThree != "NA" && ImGui::Button("Choice A") && dialogController.validInputCheck(1)) {
+            //get inventor items
+            for(int i = 0; i < playerController.inventory.size(), i++;){
+                cout << "AAAAAAAAA " + i;
+                ImGui::Text(playerController.inventory[i].c_str());
+            }
+
+            if (buttonOne != "NA" && ImGui::Button(buttonOne.c_str()) && dialogController.validInputCheck(1)) {
                 dialogController.changePage(1); //selection = 1;
             }
 
-            if (buttonThree != "NA" && ImGui::Button("Choice B") && dialogController.validInputCheck(2)) {
+            if (buttonTwo != "NA" && ImGui::Button(buttonTwo.c_str()) && dialogController.validInputCheck(2)) {
                 dialogController.changePage(2); //selection = 2;
             }
 
-            if ( buttonThree != "NA" && ImGui::Button("Choice C") && dialogController.validInputCheck(3)) {
+            if ( buttonThree != "NA" && ImGui::Button(buttonThree.c_str()) && dialogController.validInputCheck(3)) {
                 dialogController.changePage(3); //selection = 3;
             }
 
