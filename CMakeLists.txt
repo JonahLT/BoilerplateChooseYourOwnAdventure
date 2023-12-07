@@ -24,6 +24,8 @@ IF(DEFINED EMSCRIPTEN)
     file(COPY ${HTML} DESTINATION ${CMAKE_BINARY_DIR}/bin/)
 ENDIF()
 
+
+
 # add dependencies
 include(external/compilerchecks.cmake)
 include(external/cpm.cmake)
@@ -37,6 +39,10 @@ include(external/imgui.cmake)
 add_executable(demo main.cpp
         story.cpp)
 add_executable(demo2 main2.cpp)
+
+#code from discord
+file(COPY cmake-build-debug/saveFile1.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(OpenGL REQUIRED)
 if(EMSCRIPTEN)

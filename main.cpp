@@ -278,7 +278,6 @@ int main(int argc, char* argv[]) {
             std::string buttonTwo = dialogController.dialog[2];
             std::string buttonThree = dialogController.dialog[3];
 
-            int selection = -1;
 
             ImGui::Begin("Game Window");
 
@@ -289,9 +288,10 @@ int main(int argc, char* argv[]) {
             ImGui::Text("This is where the game is lol");
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
-            //get inventor items
-            for(int i = 0; i < playerController.inventory.size(), i++;){
-                cout << "AAAAAAAAA " + i;
+            //get inventory items
+            //stops at 39 for some reason before going again
+            for(int i = 0; i < playerController.inventory.size(); i++){
+                cout << "iteration " + to_string(i) << endl;
                 allItems += playerController.inventory.at(0) + "\n";
             }
             ImGui::Text(playerController.inventory.at(0).c_str());
@@ -307,8 +307,6 @@ int main(int argc, char* argv[]) {
             if ( buttonThree != "NA" && ImGui::Button(buttonThree.c_str()) && dialogController.validInputCheck(3)) {
                 dialogController.changePage(3); //selection = 3;
             }
-
-
 
             ImGui::End();
         }
