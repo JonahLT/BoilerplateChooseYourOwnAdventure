@@ -28,7 +28,7 @@ public:
 
 
     virtual void displayInfo() {
-        cout << "this is the dialog box \n";
+        //cout << "this is the dialog box \n";
     }
     virtual void decisionMaker() {
         //cout << "this will eventually intake a decision after \n";
@@ -73,7 +73,7 @@ public:
         //I may turn this into "string displayInfo" instead of void
         // but the idea is a stringstream is created and then somehow
         // the output of that can be used in the UI
-        cout << "this is the dialog text \n";
+        //cout << "this is the dialog text \n";
         //stringstream dstream;
         switch(pageNum){
             case 0:
@@ -315,7 +315,7 @@ class Dialog2 : public uiElement {
 private:
 public:
     void displayInfo() { //override
-        cout << "this is the dialog text \n";
+        //cout << "this is the dialog text \n";
         switch(pageNum) {
             default:
                 cout << "error";

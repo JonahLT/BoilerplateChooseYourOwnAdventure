@@ -247,10 +247,11 @@ int main(int argc, char* argv[]) {
                             playerController.inventory.resize(playerController.inventory.size()*2);
                         }
                         getline(myfile, item);
-
+                        cout << "item: <" << item << ">\n";
                         if (!myfile.eof()) {
                             playerController.inventory.push_back(item);
                         }
+                        cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n";
                         counter++;
                     }
                 }
@@ -264,6 +265,7 @@ int main(int argc, char* argv[]) {
         //game window maybeeee :3
         if (show_game_window){
             //call story.cpp to get data of what to show on screen
+            string allItems;
             dialogController.displayInfo();
             std::string roomDescription = dialogController.dialog[0];//"ROOM DESCRIPTION HERE!!!!";
             std::string buttonOne = dialogController.dialog[1];
@@ -284,9 +286,10 @@ int main(int argc, char* argv[]) {
             //get inventor items
             for(int i = 0; i < playerController.inventory.size(), i++;){
                 cout << "AAAAAAAAA " + i;
-                ImGui::Text(playerController.inventory[i].c_str());
+                allItems += playerController.inventory.at(0) + "\n";
             }
-
+            ImGui::Text(playerController.inventory.at(0).c_str());
+            //cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n" ;
             if (buttonOne != "NA" && ImGui::Button(buttonOne.c_str()) && dialogController.validInputCheck(1)) {
                 dialogController.changePage(1); //selection = 1;
             }
