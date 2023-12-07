@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
     string saveFileName;
     Dialog1 dialogController;
     Player playerController;
+    playerController.inventory.resize(40);
 
 
 
@@ -239,9 +240,14 @@ int main(int argc, char* argv[]) {
                 myfile >> item;
                 myfile >> dialogController.chapterNum;
                 myfile >> dialogController.pageNum;
-                while (!myfile.eof()) {
-                    getline(myfile, item, ',');
+                int counter = 0;
+                while (!myfile.eof() && counter < 3) {
+                    if (!(playerController.inventory.size() < counter)) {
+                        playerController.inventory.resize(playerController.inventory.size()*2);
+                    }
+                    getline(myfile, item);
                     playerController.inventory.push_back(item);
+                    counter++;
                 }
                 myfile.close();
             }
