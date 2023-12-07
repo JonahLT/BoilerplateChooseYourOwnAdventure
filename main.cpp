@@ -216,23 +216,23 @@ int main(int argc, char* argv[]) {
             if(ImGui::Button("Load Save One")){
 
                 saveSelection = 1;
-                ifstream myfile;
+                ifstream fin("saveFile1.txt");
                 string item;
-                myfile.open ("saveFile1.txt");
-                if (myfile.is_open()) {
+                //fin.open("saveFile1.txt");
+                if (fin.is_open()) {
                     cout << "save file opened";
-                    myfile >> item;
-                    myfile >> dialogController.chapterNum;
-                    myfile >> dialogController.pageNum;
+                    fin >> item;
+                    fin >> dialogController.chapterNum;
+                    fin >> dialogController.pageNum;
                     int counter = 0;
-                    while (!myfile.eof()) {
+                    while (!fin.eof()) {
 
                         if (!(playerController.inventory.size() < counter)) {
                             playerController.inventory.resize(playerController.inventory.size()*2);
                         }
-                        getline(myfile, item);
+                        getline(fin, item);
                         cout << "item: <" << item << ">\n";
-                        if (!myfile.eof()) {
+                        if (!fin.eof()) {
                             playerController.inventory.push_back(item);
                         }
                         cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n";
@@ -240,7 +240,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-                myfile.close();
+                fin.close();
                 show_game_window = true;
                 show_save_window = false;
             } else if(ImGui::Button("Load Save Two")) {
