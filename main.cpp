@@ -219,7 +219,7 @@ int main(int argc, char* argv[]) {
                 ifstream myfile;
                 string item;
                 myfile.open ("saveFile1.txt");
-                if (myfile) {
+                if (myfile.is_open()) {
                     cout << "save file opened";
                     myfile >> item;
                     myfile >> dialogController.chapterNum;
