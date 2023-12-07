@@ -237,18 +237,24 @@ int main(int argc, char* argv[]) {
                 ifstream myfile;
                 string item;
                 myfile.open (saveFileName);
-                myfile >> item;
-                myfile >> dialogController.chapterNum;
-                myfile >> dialogController.pageNum;
-                int counter = 0;
-                while (!myfile.eof() && counter < 3) {
-                    if (!(playerController.inventory.size() < counter)) {
-                        playerController.inventory.resize(playerController.inventory.size()*2);
+                if (myfile.is_open()) {
+                    myfile >> item;
+                    myfile >> dialogController.chapterNum;
+                    myfile >> dialogController.pageNum;
+                    int counter = 0;
+                    while (!myfile.eof()) {
+                        //if (!(playerController.inventory.size() < counter)) {
+                        //    playerController.inventory.resize(playerController.inventory.size()*2);
+                        //}
+                        getline(myfile, item);
+
+                        if (!myfile.eof()) {
+                            //playerController.inventory.push_back(item);
+                        }
+                        //counter++;
                     }
-                    getline(myfile, item);
-                    playerController.inventory.push_back(item);
-                    counter++;
                 }
+
                 myfile.close();
             }
 
