@@ -243,15 +243,15 @@ int main(int argc, char* argv[]) {
                     myfile >> dialogController.pageNum;
                     int counter = 0;
                     while (!myfile.eof()) {
-                        //if (!(playerController.inventory.size() < counter)) {
-                        //    playerController.inventory.resize(playerController.inventory.size()*2);
-                        //}
+                        if (!(playerController.inventory.size() < counter)) {
+                            playerController.inventory.resize(playerController.inventory.size()*2);
+                        }
                         getline(myfile, item);
 
                         if (!myfile.eof()) {
-                            //playerController.inventory.push_back(item);
+                            playerController.inventory.push_back(item);
                         }
-                        //counter++;
+                        counter++;
                     }
                 }
 
