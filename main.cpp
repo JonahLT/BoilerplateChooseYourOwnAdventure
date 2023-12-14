@@ -216,7 +216,7 @@ int main(int argc, char* argv[]) {
             if(ImGui::Button("Load Save One")){
 
                 saveSelection = 1;
-                ifstream fin("saveFile1.txt");
+                ifstream fin("savefiles/saveFile1.txt");
                 string item;
                 //fin.open("saveFile1.txt");
                 if (fin.is_open()) {

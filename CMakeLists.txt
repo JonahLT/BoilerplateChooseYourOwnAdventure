@@ -41,8 +41,8 @@ add_executable(demo main.cpp
 add_executable(demo2 main2.cpp)
 
 #code from discord
-file(COPY cmake-build-debug/saveFile1.txt
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB TEXTS "savefiles/*.txt")
+file(COPY ${TEXTS} DESTINATION "${CMAKE_BINARY_DIR}/bin/savefiles")
 
 find_package(OpenGL REQUIRED)
 if(EMSCRIPTEN)
