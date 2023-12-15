@@ -99,13 +99,16 @@ public:
         if (inventoryPtr == nullptr) {
             return false; // REMEMBER TO PUT EXCEPTION HANDLING HERE
         }
-        for(int i = 0; i < inventoryPtr->size(); i++) {
+        for (int i = 0; i < inventoryPtr->size(); i++) {
             if (inventoryPtr->operator[](i) == desiredItem) {
                 return true;
             }
         }
         return false;
-}
+    }
+    void dialogAddToInventory(string item) {
+
+    }
 
     void displayInfo() { //override
         //I may turn this into "string displayInfo" instead of void
@@ -200,8 +203,10 @@ public:
                 dialog[0] = "You encounter a strange box with a lock on it\n"
                             "What will you do with it? \n";
                 dialog[1] = "1. ignore it \n";
-                dialog[2] = "2. try to open it \n";
-                dialog[3] = "NA\n";//"2. enter cave \n";
+                dialog[2] = "2. ive yet to impliment something here lol \n";
+                if (dialogCheckInventory("key")) {
+                    dialog[3] = "3. Use the key you found!\n";
+                } else {dialog[3] ="NA\n";}
                 break;
             case 11:
                 dialog[0] = "You realize you don't even have any way\n"
@@ -253,8 +258,9 @@ public:
                             "You're starting to think there might be a way across \n";
                 dialog[1] = "1. ignore the not-bridge \n";
                 dialog[2] = "2. JUMP ACROSS \n";
-                if (checkInventory("rope"))
-                dialog[3] = "3.\n";//"2. enter cave \n";
+                if (dialogCheckInventory("rope")) {
+                    dialog[3] = "3. Use the rope you found!\n";
+                } else {dialog[3] ="NA\n";}
                 break;
             case 17:
                 dialog[0] = "After deciding to not make the stupid \n"
@@ -272,11 +278,13 @@ public:
                             "no way you were ever going to jump\n"
                             "that far. what are you final thoughts? \n";
                 dialog[1] = "1. man that sucks \n";
-                dialog[2] = "2. at least I have my bubble gum \n";
+                if (dialogCheckInventory("bubble gum")) {
+                    dialog[2] = "2. at least I have my bubble gum\n";
+                } else {dialog[2] ="NA\n";}
                 dialog[3] = "NA\n";//"2. enter cave \n";
                 break;
             case 19:
-                dialog[0] = "After remembering you had some rope you manage \n"
+                dialog[0] = "After retrieving the rope you found, you manage \n"
                             "to swing across indiana jones-style using \n"
                             "the rope you found. on the other side You have found \n"
                             "a treasure chest thats full of gold and rare gems!\n";
@@ -320,6 +328,7 @@ public:
 
     void changePage(int choice) {
         //
+        //if (choice = 0) assign to save game button maybe?
         switch (pageNum)
         {
             case 0:
@@ -417,21 +426,14 @@ public:
                 }
                 break;
             case 10:
-                if (choice == 1)
+                if (choice == 1 || choice == 2)
                 {
                     pageNum = 11;
                 }
-                else if (choice == 2)
+                else if (choice == 3)
                 {
-                    if (validateItem("key"))
-                    {
-                        editInventory("a really cool box", 1);
+                    //    editInventory("a really cool box", 1);
                         pageNum = 12;
-                    }
-                    else
-                    {
-                        pageNum = 11;
-                    }
                 }
                 break;
             case 11:
@@ -466,20 +468,15 @@ public:
             case 16:
                 if (choice == 1)
                 {
-                    editInventory("an eternally greatful turtle", 1);
+                    //editInventory("an eternally greatful turtle", 1);
                     pageNum = 17;
                 }
                 else if (choice == 2)
                 {
-                    if (validateItem("rope"))
-                    {
-                        editInventory("lots of riches", 1);
-                        pageNum = 19;
-                    }
-                    else
-                    {
-                        pageNum = 18;
-                    }
+                    pageNum = 18;
+                } else if (choice == 3){
+                    //editInventory("lots of riches", 1);
+                    pageNum = 19;
                 }
                 break;
             case 17:
@@ -500,7 +497,7 @@ public:
 
     }
 
-    bool validInputCheck(int choice) {
+    bool validInputCheck(int choice) { //i dont even think we need this?
         switch(pageNum){
             case 0:
                 //dstream << "You are at the enterance to a cave. \n"
