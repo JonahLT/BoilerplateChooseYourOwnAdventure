@@ -59,6 +59,13 @@ public:
         }
         return false;
     }
+    string getInventory(){
+        stringstream outputStr;
+        for(int i = 0; i < inventory.size(); i++) {
+            outputStr << inventory[i] << "\n";
+        }
+        return outputStr.str();
+    }
 };
 
 // Derived class
@@ -109,6 +116,8 @@ public:
     void dialogAddToInventory(string item) {
         inventoryPtr->push_back(item);
     }
+
+
 
     void displayInfo() { //override
         //I may turn this into "string displayInfo" instead of void
