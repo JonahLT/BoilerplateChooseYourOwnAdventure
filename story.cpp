@@ -27,10 +27,7 @@ public:
 
 
     virtual void displayInfo() {
-        //cout << "this is the dialog box \n";
-    }
-    virtual void decisionMaker() {
-        //cout << "this will eventually intake a decision after \n";
+        //overridden function
     }
 
 
@@ -42,13 +39,10 @@ private:
     string name;
 public:
     vector<string> inventory;
-    //Player(vector<string> items){
-    //    inventory = items;
-    //}
-    //vector<string> inventory;
 
+    //
     void displayInfo() { //override
-        cout << name << ": this might display name? \n";
+        //planned to display user's name
     }
     bool checkInventory(string desiredItem) {
         //string currentItem;
@@ -59,6 +53,7 @@ public:
         }
         return false;
     }
+    //returns string thats displayed in inventory window
     string getInventory(){
         stringstream outputStr;
         for(int i = 0; i < inventory.size(); i++) {
@@ -68,13 +63,14 @@ public:
         }
         return outputStr.str();
     }
+    // used for adding to inventory
     Player operator+=(string item) {
         inventory.reserve(inventory.size()+1);
         Player tempClass;
         tempClass.inventory = inventory;
         tempClass.inventory.push_back(item);
         return tempClass;
-    }
+    } //used for removing from inventory
     Player operator-=(string item) {
         Player tempClass;
         tempClass.inventory = inventory;
@@ -88,16 +84,13 @@ public:
     }
 };
 
-// Derived class
+//
 class Dialog1 : public uiElement {
 private:
 public:
     Player *playerReference;
 
-    //Dialog1(Player* playerObject) {
-    //    playerReference = playerObject;
-    //}
-
+    //returns true if desiredItem is in inventory
     bool dialogCheckInventory(string desiredItem) {
 
         try{
@@ -117,13 +110,8 @@ public:
         return false;
     }
 
-
-    void displayInfo() { //override
-        //I may turn this into "string displayInfo" instead of void
-        // but the idea is a stringstream is created and then somehow
-        // the output of that can be used in the UI
-        //cout << "this is the dialog text \n";
-        //stringstream dstream;
+//determines the text in the main window
+    void displayInfo() {
         switch(pageNum){
             case 0:
                 dialog[0] = "You are at the enterance to a cave. \n"
@@ -319,6 +307,7 @@ public:
         }
     }
 
+    // determines what the buttons do based on the page it is on
     void changePage(int choice) {
         //
         //if (choice = 0) assign to save game button maybe?
@@ -492,7 +481,7 @@ public:
     }
 
 };
-// Derived class
+// planned future class for other chapters
 class Dialog2 : public uiElement {
 private:
 public:
