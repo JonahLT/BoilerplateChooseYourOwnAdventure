@@ -180,36 +180,6 @@ int main(int argc, char* argv[]) {
                 exit(0);
             }
 
-            /**
-             *
-                             ifstream fin("savefiles/saveFile1.txt");
-                string item;
-                //fin.open("saveFile1.txt");
-                if (fin.is_open()) {
-                    cout << "save file opened";
-                    fin >> item;
-                    fin >> dialogController.chapterNum;
-                    fin >> dialogController.pageNum;
-                    int counter = 0;
-                    while (!fin.eof()) {
-
-                        if (!(playerController.inventory.size() < counter)) {
-                            playerController.inventory.resize(playerController.inventory.size()*2);
-                        }
-                        getline(fin, item);
-                        cout << "item: <" << item << ">\n";
-                        if (!fin.eof()) {
-                            playerController.inventory.push_back(item);
-                        }
-                        cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n";
-                        counter++;
-                    }
-                }
-
-                fin.close();
-
-             * */
-
             //send save selection to story.cpp
             if (saveSelection == 1) {
                 saveFileName = "saveFile1.txt";
@@ -235,11 +205,9 @@ int main(int argc, char* argv[]) {
                             playerController.inventory.reserve(playerController.inventory.capacity()*2);
                         }
                         getline(fin, item);
-                        cout << "item: <" << item << ">\n";
                         if (!fin.eof()) {
                             playerController.inventory.push_back(item);
                         }
-                        cout << "this is item number "<< counter <<": <" << playerController.inventory.at(counter) << ">\n";
                         counter++;
                     }
                 }
