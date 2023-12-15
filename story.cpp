@@ -311,20 +311,20 @@ public:
         }
     }
 
-    void takeInput(int input) {
+    //void takeInput(int input) {
         //
-        bool valid = false;
+        //bool valid = false;
         //int input;
 
         //while (valid == false) {
         //cout << "enter selection: ";
         //cin >> input;
 
-        valid = validInputCheck(input);
+        //valid = validInputCheck(input);
         //}
-        changePage(input);
+        //changePage(input);
 
-    }
+    //}
 
     void changePage(int choice) {
         //
@@ -497,84 +497,7 @@ public:
 
     }
 
-    bool validInputCheck(int choice) { //i dont even think we need this?
-        switch(pageNum){
-            case 0:
-                //dstream << "You are at the enterance to a cave. \n"
-                //        << "What will you do? \n"
-                //        << "0. Check inventory \n"
-                //        << "1. not enter cave \n"
-                //        << "2. enter cave \n";
-                break;
-            case 1:
 
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-                //if (whaterver how to check if something is in vrcetor ) {
-                //    you can do taht option
-                //}
-                //elkse {
-                //    this option doesnt work
-                //};
-                break;
-            case 9:
-
-                break;
-            case 10:
-
-                break;
-            case 11:
-
-                break;
-            case 12:
-
-                break;
-            case 13:
-
-                break;
-            case 14:
-
-                break;
-            case 15:
-
-                break;
-            case 16:
-
-                break;
-            case 17:
-
-                break;
-            case 18:
-
-                break;
-            case 19:
-
-                break;
-            case 20:
-
-                break;
-            default:
-                return true;
-        }
-    }
 };
 // Derived class
 class Dialog2 : public uiElement {
