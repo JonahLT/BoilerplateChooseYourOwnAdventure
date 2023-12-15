@@ -61,8 +61,10 @@ public:
     }
     string getInventory(){
         stringstream outputStr;
-        for(int i = 1; i < inventory.size(); i++) {
-            outputStr << inventory[i] << "\n";
+        for(int i = 0; i < inventory.size(); i++) {
+            if (inventory[i].length() > 1) {
+                outputStr << inventory[i] << "\n";
+            }
         }
         return outputStr.str();
     }
@@ -209,7 +211,7 @@ public:
                 dialog[0] = "You encounter a strange box with a lock on it\n"
                             "What will you do with it? \n";
                 dialog[1] = "1. ignore it \n";
-                dialog[2] = "2. ive yet to impliment something here lol \n";
+                dialog[2] = "NA\n";
                 if (dialogCheckInventory("key")) {
                     dialog[3] = "3. Use the key you found!\n";
                 } else {dialog[3] ="NA\n";}

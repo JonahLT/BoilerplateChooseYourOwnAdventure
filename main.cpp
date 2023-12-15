@@ -164,9 +164,25 @@ int main(int argc, char* argv[]) {
             ImGui::SetNextWindowSize(winSize);
             ImGui::Begin("Saves",NULL,ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse);
             if(ImGui::Button("Load Save One", buttSize)){
-
                 saveSelection = 1;
-                ifstream fin("savefiles/saveFile1.txt");
+                show_game_window = true;
+                show_save_window = false;
+            } else if(ImGui::Button("Load Save Two",buttSize)) {
+                saveSelection = 2;
+                show_game_window = true;
+                show_save_window = false;
+            } else if(ImGui::Button("Load Save Three",buttSize)) {
+                saveSelection = 3;
+                show_game_window = true;
+                show_save_window = false;
+            }
+            if(ImGui::Button("Close Game",ImVec2(300,25))){
+                exit(0);
+            }
+
+            /**
+             *
+                             ifstream fin("savefiles/saveFile1.txt");
                 string item;
                 //fin.open("saveFile1.txt");
                 if (fin.is_open()) {
@@ -191,20 +207,8 @@ int main(int argc, char* argv[]) {
                 }
 
                 fin.close();
-                show_game_window = true;
-                show_save_window = false;
-            } else if(ImGui::Button("Load Save Two",buttSize)) {
-                show_game_window = true;
-                show_save_window = false;
-                saveSelection = 2;
-            } else if(ImGui::Button("Load Save Three",buttSize)) {
-                show_game_window = true;
-                show_save_window = false;
-                saveSelection = 3;
-            }
-            if(ImGui::Button("Close Game",ImVec2(300,25))){
-                exit(0);
-            }
+
+             * */
 
             //send save selection to story.cpp
             if (saveSelection == 1) {
@@ -213,6 +217,34 @@ int main(int argc, char* argv[]) {
                 saveFileName = "saveFile2.txt";
             } else if (saveSelection == 3) {
                 saveFileName = "saveFile3.txt";
+            }
+
+            if (saveSelection != 0) {
+                ifstream fin("savefiles/" + saveFileName);
+                string item;
+                //fin.open("saveFile1.txt");
+                if (fin.is_open()) {
+                    cout << "save file opened";
+                    fin >> item;
+                    fin >> dialogController.chapterNum;
+                    fin >> dialogController.pageNum;
+                    int counter = 0;
+                    while (!fin.eof()) {
+
+                        if (!(playerController.inventory.capacity() < counter)) {
+                            playerController.inventory.reserve(playerController.inventory.capacity()*2);
+                        }
+                        getline(fin, item);
+                        cout << "item: <" << item << ">\n";
+                        if (!fin.eof()) {
+                            playerController.inventory.push_back(item);
+                        }
+                        cout << "this is item number "<< counter <<": <" << playerController.inventory.at(counter) << ">\n";
+                        counter++;
+                    }
+                }
+
+                fin.close();
             }
 
             ImGui::End();
