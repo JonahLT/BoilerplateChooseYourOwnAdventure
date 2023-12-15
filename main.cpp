@@ -225,6 +225,7 @@ int main(int argc, char* argv[]) {
             ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
 
             //get inventory items
+            ImGui::Text("YOUR STRING HERE.c_str()");
 
             //cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n" ;
             if (buttonOne != "NA\n" && ImGui::Button(buttonOne.c_str(),buttSize)) {
