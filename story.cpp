@@ -107,7 +107,7 @@ public:
         return false;
     }
     void dialogAddToInventory(string item) {
-
+        inventoryPtr->push_back(item);
     }
 
     void displayInfo() { //override
@@ -129,8 +129,8 @@ public:
                             "silly idea. You start to walk back the path you\n"
                             "came but you reach see a cool secret passage \n"
                             "to your right you didn't see before.. \n";
-                dialog[1] = "1. Check inventory \n";
-                dialog[2] = "2. not enter cave \n";
+                dialog[1] = "1. ignore it and keep going forward \n";
+                dialog[2] = "2. investigate because it's cool \n";
                 dialog[3] = "NA\n";//"2. enter cave \n";
                 break;
             case 2:
@@ -368,7 +368,7 @@ public:
                 }
                 else if (choice == 2)
                 {
-                    //editInventory("rope", 1);
+                    dialogAddToInventory("rope");
                     pageNum = 14;
                 }
                 break;
@@ -385,7 +385,7 @@ public:
             case 5:
                 if (choice == 1)
                 {
-                    //editInventory("key", 1);
+                    dialogAddToInventory("key");
                     pageNum = 6;
                 }
                 else if (choice == 2)
@@ -432,7 +432,7 @@ public:
                 }
                 else if (choice == 3)
                 {
-                    //    editInventory("a really cool box", 1);
+                        dialogAddToInventory("a really cool box");
                         pageNum = 12;
                 }
                 break;
@@ -468,14 +468,14 @@ public:
             case 16:
                 if (choice == 1)
                 {
-                    //editInventory("an eternally greatful turtle", 1);
+                    dialogAddToInventory("turtle");
                     pageNum = 17;
                 }
                 else if (choice == 2)
                 {
                     pageNum = 18;
                 } else if (choice == 3){
-                    //editInventory("lots of riches", 1);
+                    dialogAddToInventory("lots of riches");
                     pageNum = 19;
                 }
                 break;
