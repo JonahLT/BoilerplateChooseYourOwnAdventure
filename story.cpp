@@ -15,7 +15,7 @@ public:
     string savefileName;
 
     int chapterNum;
-    int pageNum;
+    static int pageNum;
     bool programLoop = true;
     bool gameplayLoop = true;
 
@@ -368,7 +368,7 @@ public:
                 }
                 else if (choice == 2)
                 {
-                    editInventory("rope", 1);
+                    //editInventory("rope", 1);
                     pageNum = 14;
                 }
                 break;
@@ -385,7 +385,7 @@ public:
             case 5:
                 if (choice == 1)
                 {
-                    editInventory("key", 1);
+                    //editInventory("key", 1);
                     pageNum = 6;
                 }
                 else if (choice == 2)

@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     Dialog1 dialogController;
     Player playerController;
     playerController.inventory.resize(40);
-
+    dialogController.inventoryPtr = &(playerController.inventory);
 
 
     // Unused argc, argv
@@ -290,11 +290,11 @@ int main(int argc, char* argv[]) {
 
             //get inventory items
             //stops at 39 for some reason before going again
-            for(int i = 0; i < playerController.inventory.size(); i++){
-                cout << "iteration " + to_string(i) << endl;
-                allItems += playerController.inventory.at(0) + "\n";
-            }
-            ImGui::Text(playerController.inventory.at(0).c_str());
+           // for(int i = 0; i < playerController.inventory.size(); i++){
+                //cout << "iteration " + to_string(i) << endl;
+                //allItems += playerController.inventory.at(0) + "\n";
+           // }
+            //ImGui::Text(playerController.inventory.at(0).c_str());
             //cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n" ;
             if (buttonOne != "NA\n" && ImGui::Button(buttonOne.c_str()) && dialogController.validInputCheck(1)) {
                 dialogController.changePage(1); //selection = 1;
