@@ -15,10 +15,10 @@ public:
     string savefileName;
 
     int chapterNum;
-    static int pageNum;
+    int pageNum;
     bool programLoop = true;
     bool gameplayLoop = true;
-
+    static int superGoodNumber;
     uiElement() {
         chapterNum = 0;
         pageNum = 0;

@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     Dialog1 dialogController;
     Player playerController;
     playerController.inventory.resize(40);
-    dialogController.inventoryPtr = &(playerController.inventory);
+    //dialogController.inventoryPtr = &(playerController.inventory);
 
 
     // Unused argc, argv
