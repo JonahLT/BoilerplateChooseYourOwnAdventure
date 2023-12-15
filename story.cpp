@@ -61,10 +61,28 @@ public:
     }
     string getInventory(){
         stringstream outputStr;
-        for(int i = 0; i < inventory.size(); i++) {
+        for(int i = 1; i < inventory.size(); i++) {
             outputStr << inventory[i] << "\n";
         }
         return outputStr.str();
+    }
+    Player operator+=(string item) {
+        inventory.reserve(inventory.size()+1);
+        Player tempClass;
+        tempClass.inventory = inventory;
+        tempClass.inventory.push_back(item);
+        return tempClass;
+    }
+    Player operator-=(string item) {
+        Player tempClass;
+        tempClass.inventory = inventory;
+        for (int i; i < inventory.size(); i++) {
+            if (tempClass.inventory[i] == item) {
+                tempClass.inventory[i].erase(i);
+                i = inventory.size();
+            }
+        }
+        return tempClass;
     }
 };
 
@@ -72,51 +90,30 @@ public:
 class Dialog1 : public uiElement {
 private:
 public:
-    //Dialog1(int chapter, int page){
-    //chapterNum = chapter;
-    //pageNum = page;
-//}
-    int decisiontree[21][4] =
-            {
-                    {22,1,2,0},
-                    {22,4,5,0},
-                    {22,1,3,0},
-                    {22,15,14,0},
-                    {22,8,7,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0},
-                    {22,0,0,0}
-            };
-    vector<string> *inventoryPtr;
+    Player *playerReference;
+
+    //Dialog1(Player* playerObject) {
+    //    playerReference = playerObject;
+    //}
 
     bool dialogCheckInventory(string desiredItem) {
-        if (inventoryPtr == nullptr) {
-            return false; // REMEMBER TO PUT EXCEPTION HANDLING HERE
-        }
-        for (int i = 0; i < inventoryPtr->size(); i++) {
-            if (inventoryPtr->operator[](i) == desiredItem) {
-                return true;
+
+        try{
+            if (playerReference != nullptr) {
+                for (int i = 0; i < playerReference->inventory.size(); i++) {
+                    if (playerReference->inventory[i] == desiredItem) {
+                        return true;
+                    }
+                }
+            }else {
+                throw 505;
             }
+        }
+        catch(...) {
+            cout << "couldn't access player inventory, no playerReference\n";
         }
         return false;
     }
-    void dialogAddToInventory(string item) {
-        inventoryPtr->push_back(item);
-    }
-
 
 
     void displayInfo() { //override
@@ -224,7 +221,7 @@ public:
                             "this shortcut does does actually seem to\n"
                             "be quicker. \n";
                 dialog[1] = "1. oh well \n";
-                dialog[2] = "NA \n";
+                dialog[2] = "NA\n";
                 dialog[3] = "NA\n";//"2. enter cave \n";
                 break;
             case 12:
@@ -305,7 +302,7 @@ public:
                 dialog[0] = "THE END\n"
                             "\n"
                             "Thank you for playing my game \n";
-                dialog[1] = "1. exit game \n";
+                dialog[1] = "NA\n";
                 dialog[2] = "NA\n";
                 dialog[3] = "NA\n";//"2. enter cave \n";
                 break;
@@ -314,27 +311,12 @@ public:
                             "\n"
                             "we've encounter an error in displaying\n"
                             "the dialog\n";
-                dialog[1] = "1. exit game \n";
+                dialog[1] = "NA\n";
                 dialog[2] = "NA\n";
                 dialog[3] = "NA\n";//"2. enter cave \n";
         }
     }
 
-    //void takeInput(int input) {
-        //
-        //bool valid = false;
-        //int input;
-
-        //while (valid == false) {
-        //cout << "enter selection: ";
-        //cin >> input;
-
-        //valid = validInputCheck(input);
-        //}
-        //changePage(input);
-
-    //}
-/// wowowowowowo
     void changePage(int choice) {
         //
         //if (choice = 0) assign to save game button maybe?
@@ -377,7 +359,7 @@ public:
                 }
                 else if (choice == 2)
                 {
-                    dialogAddToInventory("rope");
+                    *playerReference += "rope";
                     pageNum = 14;
                 }
                 break;
@@ -394,7 +376,7 @@ public:
             case 5:
                 if (choice == 1)
                 {
-                    dialogAddToInventory("key");
+                    *playerReference += "key";
                     pageNum = 6;
                 }
                 else if (choice == 2)
@@ -441,7 +423,7 @@ public:
                 }
                 else if (choice == 3)
                 {
-                        dialogAddToInventory("a really cool box");
+                    *playerReference += "a really cool box";
                         pageNum = 12;
                 }
                 break;
@@ -477,14 +459,15 @@ public:
             case 16:
                 if (choice == 1)
                 {
-                    dialogAddToInventory("turtle");
+                    *playerReference += "turtle";
                     pageNum = 17;
                 }
                 else if (choice == 2)
                 {
                     pageNum = 18;
                 } else if (choice == 3){
-                    dialogAddToInventory("lots of riches");
+                    *playerReference -= "rope";
+                    *playerReference += "lots of riches";
                     pageNum = 19;
                 }
                 break;
@@ -506,183 +489,48 @@ public:
 
     }
 
-
 };
 // Derived class
 class Dialog2 : public uiElement {
 private:
 public:
-    void displayInfo() { //override
-        //cout << "this is the dialog text \n";
-        switch(pageNum) {
-            default:
-                cout << "error";
-        }
+    Player *playerReference;
+
+    Dialog2(Player playerObject) {
+        playerReference = &playerObject;
     }
 
-    void takeInput(int input) {
-        //
-        bool valid = false;
-        //int input;
+    bool dialogCheckInventory(string desiredItem) {
+        if (playerReference == nullptr) {
+            return false; // REMEMBER TO PUT EXCEPTION HANDLING HERE
+        }
+        for (int i = 0; i < playerReference->inventory.size(); i++) {
+            if (playerReference->inventory[i] == desiredItem) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        //while (valid == false) {
-        //cout << "enter selection: ";
-        //cin >> input;
-
-        valid = validInputCheck(input);
-        //}
-        changePage(input);
-
+    void displayInfo() { //override
+        switch(pageNum) {
+            default:
+                dialog[0] = "Thank you for playing our game! \n"
+                            "Chapter 2 coming soon...\n";
+                dialog[1] = "NA\n";
+                dialog[2] = "NA\n";
+                dialog[3] = "NA\n";
+                break;
+        }
     }
 
     void changePage(int choice) {
         //
         switch(pageNum){
-            case 0:
-
-                break;
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-
-                break;
-            case 9:
-
-                break;
-            case 10:
-
-                break;
-            case 11:
-
-                break;
-            case 12:
-
-                break;
-            case 13:
-
-                break;
-            case 14:
-
-                break;
-            case 15:
-
-                break;
-            case 16:
-
-                break;
-            case 17:
-
-                break;
-            case 18:
-
-                break;
-            case 19:
-
-                break;
-            case 20:
-
-                break;
             default:
-                cout << "oops error lol";
+                cout << "Chapter 2 not yet finished!";
         }
 
     }
 
-    bool validInputCheck(int choice) {
-        switch(pageNum){
-            case 0:
-                //dstream << "You are at the enterance to a cave. \n"
-                //        << "What will you do? \n"
-                //        << "0. Check inventory \n"
-                //        << "1. not enter cave \n"
-                //        << "2. enter cave \n";
-                break;
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-
-                break;
-            case 8:
-                //if (whaterver how to check if something is in vrcetor ) {
-                //    you can do taht option
-                //}
-                //elkse {
-                //    this option doesnt work
-                //};
-                break;
-            case 9:
-
-                break;
-            case 10:
-
-                break;
-            case 11:
-
-                break;
-            case 12:
-
-                break;
-            case 13:
-
-                break;
-            case 14:
-
-                break;
-            case 15:
-
-                break;
-            case 16:
-
-                break;
-            case 17:
-
-                break;
-            case 18:
-
-                break;
-            case 19:
-
-                break;
-            case 20:
-
-                break;
-            default:
-                return true;
-        }
-    }
 };

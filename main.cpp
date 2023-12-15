@@ -32,10 +32,13 @@ int main(int argc, char* argv[]) {
 
     uiElement controllerClass;
     string saveFileName;
-    Dialog1 dialogController;
+
     Player playerController;
-    playerController.inventory.resize(40);
-    dialogController.inventoryPtr = &(playerController.inventory);
+    //Dialog1 dialogController(&playerController);
+    Dialog1 dialogController;
+    dialogController.playerReference = &playerController;
+    playerController.inventory.resize(1);
+
 
     ImVec2 buttSize =  ImVec2(300,75);
     ImVec2 winSize = ImVec2(400,400);
@@ -227,7 +230,6 @@ int main(int argc, char* argv[]) {
             std::string buttonThree = dialogController.dialog[3];
 
             ImGui::Begin("Game Window",NULL,ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse);
-
             //display description
 
             //send back player input when u get it
