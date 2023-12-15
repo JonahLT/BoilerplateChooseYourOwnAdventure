@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     dialogController.inventoryPtr = &(playerController.inventory);
 
     ImVec2 buttSize =  ImVec2(300,75);
-    ImVec2 winSize = ImVec2(400,300);
+    ImVec2 winSize = ImVec2(400,400);
 
     // Unused argc, argv
     (void) argc;
