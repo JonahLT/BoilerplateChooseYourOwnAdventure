@@ -296,15 +296,15 @@ int main(int argc, char* argv[]) {
             }
             ImGui::Text(playerController.inventory.at(0).c_str());
             //cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n" ;
-            if (buttonOne != "NA" && ImGui::Button(buttonOne.c_str()) && dialogController.validInputCheck(1)) {
+            if (buttonOne != "NA\n" && ImGui::Button(buttonOne.c_str()) && dialogController.validInputCheck(1)) {
                 dialogController.changePage(1); //selection = 1;
             }
 
-            if (buttonTwo != "NA" && ImGui::Button(buttonTwo.c_str()) && dialogController.validInputCheck(2)) {
+            if (buttonTwo != "NA\n" && ImGui::Button(buttonTwo.c_str()) && dialogController.validInputCheck(2)) {
                 dialogController.changePage(2); //selection = 2;
             }
 
-            if ( buttonThree != "NA" && ImGui::Button(buttonThree.c_str()) && dialogController.validInputCheck(3)) {
+            if ( buttonThree != "NA\n" && ImGui::Button(buttonThree.c_str()) && dialogController.validInputCheck(3)) {
                 dialogController.changePage(3); //selection = 3;
             }
 
