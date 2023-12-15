@@ -87,8 +87,7 @@ int main(int argc, char* argv[]) {
     ImGui_ImplSDLRenderer_Init(renderer);
 
     // Our state
-    bool show_demo_window = false;
-    bool show_another_window = false;
+    bool show_inventory_window = false;
     bool show_game_window = false;
     bool show_menu_window = true;
     bool show_save_window = false;
@@ -138,11 +137,21 @@ int main(int argc, char* argv[]) {
             ImGui::Begin("Main Menu",NULL,ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse);
             if(ImGui::Button("Load Game",buttSize)){
                 show_save_window = true;
+                show_inventory_window = true;
                 show_menu_window = false;
             }
             if(ImGui::Button("Close Game",ImVec2(300,25))){
                 exit(0);
             }
+            ImGui::End();
+        }
+
+        if(show_inventory_window){
+            ImGui::SetNextWindowSize(winSize);
+            ImGui::Begin("Inventory",NULL,ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoCollapse);
+            //get inventory items
+            ImGui::Text(playerController.getInventory().c_str());
+
             ImGui::End();
         }
 
@@ -222,10 +231,7 @@ int main(int argc, char* argv[]) {
             //display description
 
             //send back player input when u get it
-            ImGui::Text(roomDescription.c_str());// Display some text (you can use a format strings too)
-
-            //get inventory items
-            ImGui::Text(playerController.getInventory().c_str());
+            ImGui::Text(roomDescription.c_str());
 
             //cout << "this is item number 1: <" << playerController.inventory.at(0) << ">\n" ;
             if (buttonOne != "NA\n" && ImGui::Button(buttonOne.c_str(),buttSize)) {
